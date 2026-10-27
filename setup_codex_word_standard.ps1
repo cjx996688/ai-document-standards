@@ -27,7 +27,12 @@ $agents = Join-Path $codexHome 'AGENTS.md'
 if (Test-Path -LiteralPath $agents) {
     Copy-Item -LiteralPath $agents -Destination "$agents.bak.$(Get-Date -Format yyyyMMddHHmmss)"
 }
-$existing = if (Test-Path -LiteralPath $agents) { Get-Content -LiteralPath $agents -Raw -Encoding UTF8 } else { '' }
+$existing = ''
+if (Test-Path -LiteralPath $agents) {
+    # Avoid PowerShell's pipeline converting an empty string expression to $null.
+    $readText = [System.IO.File]::ReadAllText($agents, [System.Text.Encoding]::UTF8)
+    if ($null -ne $readText) { $existing = [string]$readText }
+}
 if (-not $existing.Contains('<!-- WORD_STANDARD_START -->')) {
     $rule = @'
 
