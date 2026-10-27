@@ -29,6 +29,8 @@ powershell -ExecutionPolicy Bypass -File .\setup_codex_word_standard.ps1
 
 执行方式见 [规范开头](./word_format.md)：后台生成、基本结构检查后直接交付。字体、标题、表格等具体排版要求统一保留在规范中。
 
+正文保持统一字体、字号，行内变量也随正文排版；加粗仅用于少量短提示或关键短语，不照搬原稿的全部加粗。
+
 ## 更新已有安装
 
 重新执行安装脚本，会从同目录的 `AGENTS.global-snippet.md` 读取规则，替换 `AGENTS.md` 中 `WORD_STANDARD_START/END` 标记之间的旧内容，保留其他规则。实际发生修改时才备份；重复安装不会重复追加规则。标记损坏或重复时停止修改 `AGENTS.md` 并报错。
